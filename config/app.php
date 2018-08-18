@@ -150,6 +150,7 @@ return [
         /*
          * Package Service Providers...
          */
+        \JoshuaBehrens\NetworkCapacityLogger\External\Mtr\MtrServiceProvider::class,
 
         /*
          * Application Service Providers...
