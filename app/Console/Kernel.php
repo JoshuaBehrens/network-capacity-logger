@@ -25,6 +25,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('mtr:log', ['target' => '*'])->everyTenMinutes();
+        $schedule->command('speedtest:log')->everyFifteenMinutes();
     }
 
     /**
