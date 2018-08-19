@@ -3,8 +3,8 @@
 namespace JoshuaBehrens\NetworkCapacityLogger\External\Mtr;
 
 use Illuminate\Support\ServiceProvider;
-use JoshuaBehrens\NetworkCapacityLogger\External\Mtr\Console\Commands\LogTraceRoute;
-use JoshuaBehrens\NetworkCapacityLogger\External\Mtr\Console\Commands\MyTraceRoute;
+use JoshuaBehrens\NetworkCapacityLogger\External\Mtr\Console\Commands\Log;
+use JoshuaBehrens\NetworkCapacityLogger\External\Mtr\Console\Commands\Run;
 
 class MtrServiceProvider extends ServiceProvider
 {
@@ -12,8 +12,8 @@ class MtrServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                LogTraceRoute::class,
-                MyTraceRoute::class,
+                Log::class,
+                Run::class,
             ]);
         }
 

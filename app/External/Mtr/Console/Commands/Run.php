@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 use JoshuaBehrens\NetworkCapacityLogger\External\Mtr\Configuration;
 use JoshuaBehrens\NetworkCapacityLogger\External\Mtr\Runner;
 
-class MyTraceRoute extends Command
+class Run extends Command
 {
     protected $signature = 'mtr:run {--count=20} {target}';
 

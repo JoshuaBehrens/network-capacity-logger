@@ -8,7 +8,7 @@ use JoshuaBehrens\NetworkCapacityLogger\External\Mtr\Database\Hub;
 use JoshuaBehrens\NetworkCapacityLogger\External\Mtr\Database\Request;
 use JoshuaBehrens\NetworkCapacityLogger\External\Mtr\Runner;
 
-class LogTraceRoute extends Command
+class Log extends Command
 {
     protected $signature = 'mtr:log {--count=100} {target}';
 
