@@ -25,7 +25,7 @@ class LogTraceRoute extends Command
             ->setCycles((int)$this->input->getOption('count'));
 
         foreach ($target as $hostname) {
-            $request = $runner->run($configuration->setHostname($hostname));
+            $request = $runner->run($configuration->setHostname($hostname))->getReport();
 
             /** @var Request $requestModel */
             $requestModel = Request::create([

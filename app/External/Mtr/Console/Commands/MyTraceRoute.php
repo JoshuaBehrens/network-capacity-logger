@@ -23,7 +23,7 @@ class MyTraceRoute extends Command
             ->setCycles((int)$this->input->getOption('count'));
 
         foreach ($target as $hostname) {
-            $this->getOutput()->writeln(json_encode($runner->run($configuration->setHostname($hostname)), JSON_PRETTY_PRINT));
+            $this->getOutput()->writeln(json_encode($runner->run($configuration->setHostname($hostname))->getReport(), JSON_PRETTY_PRINT));
         }
     }
 }

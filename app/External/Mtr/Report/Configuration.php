@@ -1,58 +1,46 @@
 <?php declare(strict_types=1);
 
-namespace JoshuaBehrens\NetworkCapacityLogger\External\Mtr;
+namespace JoshuaBehrens\NetworkCapacityLogger\External\Mtr\Report;
 
 use JsonSerializable;
 
-class ReportConfiguration implements JsonSerializable
+class Configuration implements JsonSerializable
 {
-    /**
-     * @var ?string
-     */
-    private $source;
+    /** @var string */
+    private $source = '';
 
-    /**
-     * @var ?string
-     */
-    private $destination;
+    /** @var string */
+    private $destination = '';
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $typeOfServiceId = 0;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $packageSize = 0;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $bitPattern = 0;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $testValue = 0;
 
-    public function getSource(): ?string
+    public function getSource(): string
     {
         return $this->source;
     }
 
-    public function setSource(string $source): ReportConfiguration
+    public function setSource(string $source): Configuration
     {
         $this->source = $source;
         return $this;
     }
 
-    public function getDestination(): ?string
+    public function getDestination(): string
     {
         return $this->destination;
     }
 
-    public function setDestination(string $destination): ReportConfiguration
+    public function setDestination(string $destination): Configuration
     {
         $this->destination = $destination;
         return $this;
@@ -63,7 +51,7 @@ class ReportConfiguration implements JsonSerializable
         return $this->typeOfServiceId;
     }
 
-    public function setTypeOfServiceId(int $typeOfServiceId): ReportConfiguration
+    public function setTypeOfServiceId(int $typeOfServiceId): Configuration
     {
         $this->typeOfServiceId = $typeOfServiceId;
         return $this;
@@ -74,7 +62,7 @@ class ReportConfiguration implements JsonSerializable
         return $this->packageSize;
     }
 
-    public function setPackageSize(int $packageSize): ReportConfiguration
+    public function setPackageSize(int $packageSize): Configuration
     {
         $this->packageSize = $packageSize;
         return $this;
@@ -85,7 +73,7 @@ class ReportConfiguration implements JsonSerializable
         return $this->bitPattern;
     }
 
-    public function setBitPattern(int $bitPattern): ReportConfiguration
+    public function setBitPattern(int $bitPattern): Configuration
     {
         $this->bitPattern = $bitPattern;
         return $this;
@@ -96,7 +84,7 @@ class ReportConfiguration implements JsonSerializable
         return $this->testValue;
     }
 
-    public function setTestValue(int $testValue): ReportConfiguration
+    public function setTestValue(int $testValue): Configuration
     {
         $this->testValue = $testValue;
         return $this;

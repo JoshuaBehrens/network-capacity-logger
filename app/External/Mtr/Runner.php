@@ -3,6 +3,7 @@
 namespace JoshuaBehrens\NetworkCapacityLogger\External\Mtr;
 
 use JoshuaBehrens\NetworkCapacityLogger\External\Mtr\Exceptions\ExecutableException;
+use JoshuaBehrens\NetworkCapacityLogger\External\Mtr\Report\Response;
 use Symfony\Component\Process\Process;
 
 class Runner
@@ -23,7 +24,7 @@ class Runner
         $this->executable = $executable;
     }
 
-    public function run(Configuration $configuration): Report
+    public function run(Configuration $configuration): Response
     {
         $process = new Process([
             $configuration->getExecutable() ?? $this->executable,

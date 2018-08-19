@@ -1,34 +1,30 @@
 <?php declare(strict_types=1);
 
-namespace JoshuaBehrens\NetworkCapacityLogger\External\Mtr;
+namespace JoshuaBehrens\NetworkCapacityLogger\External\Mtr\Report;
 
 use JsonSerializable;
 
 class Report implements JsonSerializable
 {
-    /**
-     * @var ?ReportConfiguration
-     */
+    /** @var Configuration|null */
     private $configuration;
 
-    /**
-     * @var ReportHub[]
-     */
+    /** @var Hub[] */
     private $hubs = [];
 
-    public function getConfiguration(): ?ReportConfiguration
+    public function getConfiguration(): ?Configuration
     {
         return $this->configuration;
     }
 
-    public function setConfiguration(ReportConfiguration $configuration): Report
+    public function setConfiguration(Configuration $configuration): Report
     {
         $this->configuration = $configuration;
         return $this;
     }
 
     /**
-     * @return ReportHub[]
+     * @return Hub[]
      */
     public function getHubs(): array
     {
@@ -36,7 +32,7 @@ class Report implements JsonSerializable
     }
 
     /**
-     * @param ReportHub[] $hubs
+     * @param Hub[] $hubs
      * @return Report
      */
     public function setHubs(array $hubs): Report

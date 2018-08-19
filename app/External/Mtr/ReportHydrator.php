@@ -3,14 +3,18 @@
 namespace JoshuaBehrens\NetworkCapacityLogger\External\Mtr;
 
 use Illuminate\Support\Arr;
+use JoshuaBehrens\NetworkCapacityLogger\External\Mtr\Report\Configuration;
+use JoshuaBehrens\NetworkCapacityLogger\External\Mtr\Report\Hub;
+use JoshuaBehrens\NetworkCapacityLogger\External\Mtr\Report\Report;
+use JoshuaBehrens\NetworkCapacityLogger\External\Mtr\Report\Response;
 
 class ReportHydrator
 {
-    public function hydrateResponse(array $response): Report
+    public function hydrateResponse(array $response): Response
     {
-        /** @var Report $result */
-        $result = $this->hydrateByCallback($response, 'report', [], [$this, 'hydrateReport']);
-        return $result;
+        return (new Response)
+            ->setReport($this->hydrateByCallback($response, 'report', [], [$this, 'hydrateReport']))
+        ;
     }
 
     public function hydrateReport(array $reportData): Report
@@ -23,9 +27,9 @@ class ReportHydrator
         return $result;
     }
 
-    public function hydrateReportConfiguration(array $reportConfigurationData): ReportConfiguration
+    public function hydrateReportConfiguration(array $reportConfigurationData): Configuration
     {
-        return (new ReportConfiguration)
+        return (new Configuration)
             ->setBitPattern($this->hydrateInt($reportConfigurationData, 'bitpattern'))
             ->setDestination($this->hydrateString($reportConfigurationData, 'dst'))
             ->setPackageSize($this->hydrateInt($reportConfigurationData, 'psize'))
@@ -35,13 +39,13 @@ class ReportHydrator
         ;
     }
 
-    public function hydrateReportHub(array $reportHubData): ReportHub
+    public function hydrateReportHub(array $reportHubData): Hub
     {
         $host = $this->hydrateString($reportHubData, 'host');
         preg_match('/(?:(.*)\s+?\((\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\)|(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}))/', $host, $matches);
         array_shift($matches);
 
-        return (new ReportHub)
+        return (new Hub)
             ->setAverageLatency($this->hydrateFloat($reportHubData, 'Avg'))
             ->setId($this->hydrateInt($reportHubData, 'count'))
             ->setHost(Arr::first($matches, null, ''))

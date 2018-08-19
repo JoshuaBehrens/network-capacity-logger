@@ -4,15 +4,11 @@ namespace JoshuaBehrens\NetworkCapacityLogger\External\Mtr;
 
 class Configuration
 {
-    /**
-     * @var ?string
-     */
+    /** @var string|null */
     private $executable;
 
-    /**
-     * @var ?string
-     */
-    private $hostname;
+    /** @var string */
+    private $hostname = '';
 
     /**
      * @var int
@@ -30,7 +26,7 @@ class Configuration
         return $this;
     }
 
-    public function getHostname(): ?string
+    public function getHostname(): string
     {
         return $this->hostname;
     }
