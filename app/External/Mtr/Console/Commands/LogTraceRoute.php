@@ -15,31 +15,39 @@ class LogTraceRoute extends Command
     public function handle(Runner $runner)
     {
         $target = $this->input->getArgument('target');
+        if ($target === '*') {
+            $target = config('mtr')['hostnames'];
+        } else {
+            $target = explode(';', $target);
+        }
+
         $configuration = (new Configuration)
-            ->setCycles((int)$this->input->getOption('count'))
-            ->setHostname($target);
-        $request = $runner->run($configuration);
+            ->setCycles((int)$this->input->getOption('count'));
 
-        /** @var Request $requestModel */
-        $requestModel = Request::create([
-            'source' => $request->getConfiguration()->getSource(),
-            'destination' => $request->getConfiguration()->getDestination(),
-        ]);
+        foreach ($target as $hostname) {
+            $request = $runner->run($configuration->setHostname($hostname));
 
-        foreach ($request->getHubs() as $hub) {
-            Hub::create([
-                'request_id' => $requestModel->id,
-                'host' => $hub->getHost(),
-                'ip' => $hub->getIp(),
-                'order' => $hub->getId(),
-                'sent_packages' => $hub->getSentPackages(),
-                'package_loss' => $hub->getPackageLoss(),
-                'last_latency' => $hub->getLastLatency(),
-                'average_latency' => $hub->getAverageLatency(),
-                'minimum_latency' => $hub->getMinimumLatency(),
-                'maximum_latency' => $hub->getMaximumLatency(),
-                'standard_deviation_latency' => $hub->getStandardDeviationLatency(),
+            /** @var Request $requestModel */
+            $requestModel = Request::create([
+                'source' => $request->getConfiguration()->getSource(),
+                'destination' => $request->getConfiguration()->getDestination(),
             ]);
+
+            foreach ($request->getHubs() as $hub) {
+                Hub::create([
+                    'request_id' => $requestModel->id,
+                    'host' => $hub->getHost(),
+                    'ip' => $hub->getIp(),
+                    'order' => $hub->getId(),
+                    'sent_packages' => $hub->getSentPackages(),
+                    'package_loss' => $hub->getPackageLoss(),
+                    'last_latency' => $hub->getLastLatency(),
+                    'average_latency' => $hub->getAverageLatency(),
+                    'minimum_latency' => $hub->getMinimumLatency(),
+                    'maximum_latency' => $hub->getMaximumLatency(),
+                    'standard_deviation_latency' => $hub->getStandardDeviationLatency(),
+                ]);
+            }
         }
     }
 }

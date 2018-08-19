@@ -13,9 +13,17 @@ class MyTraceRoute extends Command
     public function handle(Runner $runner)
     {
         $target = $this->input->getArgument('target');
+        if ($target === '*') {
+            $target = config('mtr')['hostnames'];
+        } else {
+            $target = explode(';', $target);
+        }
+
         $configuration = (new Configuration)
-            ->setCycles((int)$this->input->getOption('count'))
-            ->setHostname($target);
-        $this->getOutput()->writeln(json_encode($runner->run($configuration), JSON_PRETTY_PRINT));
+            ->setCycles((int)$this->input->getOption('count'));
+
+        foreach ($target as $hostname) {
+            $this->getOutput()->writeln(json_encode($runner->run($configuration->setHostname($hostname)), JSON_PRETTY_PRINT));
+        }
     }
 }
