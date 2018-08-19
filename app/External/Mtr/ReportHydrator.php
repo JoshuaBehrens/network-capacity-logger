@@ -61,8 +61,8 @@ class ReportHydrator
 
     protected function hydrateString(array $data, string $key, string $default = ''): string
     {
-        if (array_key_exists($key, $data)) {
-            return strval($data[$key]);
+        if (Arr::has($data, $key)) {
+            return strval(Arr::get($data, $key));
         }
 
         return $default;
@@ -70,8 +70,8 @@ class ReportHydrator
 
     protected function hydrateInt(array $data, string $key, int $default = 0): int
     {
-        if (array_key_exists($key, $data)) {
-            return intval($data[$key]);
+        if (Arr::has($data, $key)) {
+            return intval(Arr::get($data, $key));
         }
 
         return $default;
@@ -79,8 +79,8 @@ class ReportHydrator
 
     protected function hydrateFloat(array $data, string $key, float $default = .0): float
     {
-        if (array_key_exists($key, $data)) {
-            return floatval($data[$key]);
+        if (Arr::has($data, $key)) {
+            return floatval(Arr::get($data, $key));
         }
 
         return $default;
@@ -88,8 +88,8 @@ class ReportHydrator
 
     protected function hydrateByCallback(array $data, string $key, $default, callable $generator)
     {
-        if (array_key_exists($key, $data)) {
-            return $generator($data[$key]);
+        if (Arr::has($data, $key)) {
+            return $generator(Arr::get($data, $key));
         }
 
         return $generator($default);
