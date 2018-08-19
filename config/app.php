@@ -151,6 +151,7 @@ return [
          * Package Service Providers...
          */
         \JoshuaBehrens\NetworkCapacityLogger\External\Mtr\MtrServiceProvider::class,
+        \JoshuaBehrens\NetworkCapacityLogger\External\Speedtest\SpeedtestServiceProvider::class,
         \Emadadly\LaravelUuid\LaravelUuidServiceProvider::class,
 
         /*
