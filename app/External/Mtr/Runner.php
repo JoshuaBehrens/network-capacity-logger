@@ -2,6 +2,7 @@
 
 namespace JoshuaBehrens\NetworkCapacityLogger\External\Mtr;
 
+use JoshuaBehrens\NetworkCapacityLogger\External\Mtr\Exceptions\ExecutableException;
 use Symfony\Component\Process\Process;
 
 class Runner
@@ -22,7 +23,7 @@ class Runner
         $this->executable = $executable;
     }
 
-    public function run(Configuration $configuration)
+    public function run(Configuration $configuration): Report
     {
         $process = new Process([
             $configuration->getExecutable() ?? $this->executable,
@@ -36,6 +37,11 @@ class Runner
         $process->enableOutput();
         $process->setTimeout($configuration->getCycles() * 5);
         $process->run();
+
+        if ($process->getExitCode() != 0) {
+            throw new ExecutableException($process->getErrorOutput(), $process->getExitCode());
+        }
+
         return $this->hydrator->hydrateResponse(json_decode($process->getOutput(), true));
     }
 }
