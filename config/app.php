@@ -151,6 +151,7 @@ return [
          * Package Service Providers...
          */
         \JoshuaBehrens\NetworkCapacityLogger\External\Mtr\MtrServiceProvider::class,
+        \Emadadly\LaravelUuid\LaravelUuidServiceProvider::class,
 
         /*
          * Application Service Providers...

@@ -34,6 +34,7 @@ class Runner
             $configuration->getHostname()
         ]);
         $process->enableOutput();
+        $process->setTimeout($configuration->getCycles() * 5);
         $process->run();
         return $this->hydrator->hydrateResponse(json_decode($process->getOutput(), true));
     }
